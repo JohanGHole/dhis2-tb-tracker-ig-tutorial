@@ -1,0 +1,378 @@
+{
+    "name": "TB program",
+    "displayName": "TB program",
+    "programStages": [
+      {
+        "name": "Lab monitoring",
+        "description": "Laboratory monitoring",
+        "programStageDataElements": [
+          {
+            "dataElement": {
+              "formName": "CD4",
+              "valueType": "TRUE_ONLY",
+              "displayName": "TB lab CD4"
+            },
+            "compulsory": false
+          },
+          {
+            "dataElement": {
+              "formName": "Creatinine",
+              "valueType": "TRUE_ONLY",
+              "displayName": "TB lab Creatinine"
+            },
+            "compulsory": false
+          },
+          {
+            "dataElement": {
+              "formName": "Glucose",
+              "valueType": "TRUE_ONLY",
+              "displayName": "Tb lab Glucose"
+            },
+            "compulsory": false
+          },
+          {
+            "dataElement": {
+              "formName": "Hemoglobin",
+              "valueType": "TRUE_ONLY",
+              "displayName": "TB lab Hemoglobin"
+            },
+            "compulsory": false
+          }
+        ]
+      },
+      {
+        "name": "TB visit",
+        "description": "Routine TB visit",
+        "programStageDataElements": [
+          {
+            "dataElement": {
+              "formName": "Disease Classification",
+              "valueType": "TEXT",
+              "optionSet": {
+                "options": [
+                  {
+                    "code": "P+",
+                    "name": "P+"
+                  },
+                  {
+                    "code": "P-",
+                    "name": "P-"
+                  },
+                  {
+                    "code": "PE",
+                    "name": "PE"
+                  }
+                ]
+              },
+              "displayName": "TB Disease Classification"
+            },
+            "compulsory": true
+          },
+          {
+            "dataElement": {
+              "formName": "",
+              "valueType": "TEXT",
+              "optionSet": {
+                "options": [
+                  {
+                    "code": "New",
+                    "name": "New"
+                  },
+                  {
+                    "code": "Relapse",
+                    "name": "Relapse"
+                  },
+                  {
+                    "code": "Failure",
+                    "name": "Failure"
+                  },
+                  {
+                    "code": "TAI",
+                    "name": "TAI"
+                  }
+                ]
+              },
+              "displayName": "TB Case Definition"
+            },
+            "compulsory": true
+          },
+          {
+            "dataElement": {
+              "formName": "Treatment card",
+              "valueType": "FILE_RESOURCE",
+              "displayName": "TB treatment card"
+            },
+            "compulsory": false
+          },
+          {
+            "dataElement": {
+              "formName": "Previous use of second- line drugs?",
+              "valueType": "TRUE_ONLY",
+              "displayName": "TB Previous use of second-line drugs"
+            },
+            "compulsory": false
+          },
+          {
+            "dataElement": {
+              "formName": "Started on ART?",
+              "valueType": "TRUE_ONLY",
+              "displayName": "TB Started on ART"
+            },
+            "compulsory": false
+          },
+          {
+            "dataElement": {
+              "formName": "Started on CPT?",
+              "valueType": "TRUE_ONLY",
+              "displayName": "TB Started on CPT"
+            },
+            "compulsory": false
+          },
+          {
+            "dataElement": {
+              "formName": "HIV testing done",
+              "valueType": "BOOLEAN",
+              "displayName": "TB HIV testing done"
+            },
+            "compulsory": false
+          }
+        ]
+      },
+      {
+        "name": "Sputum smear microscopy test",
+        "description": "Sputum smear microscopy test",
+        "programStageDataElements": [
+          {
+            "dataElement": {
+              "valueType": "INTEGER_POSITIVE",
+              "displayName": "TB smear microscopy number of specimen"
+            },
+            "compulsory": true
+          },
+          {
+            "dataElement": {
+              "valueType": "TEXT",
+              "optionSet": {
+                "options": [
+                  {
+                    "code": "NEG",
+                    "name": "Negative"
+                  },
+                  {
+                    "code": "POS",
+                    "name": "Positive"
+                  }
+                ]
+              },
+              "displayName": "TB smear microscopy test outcome"
+            },
+            "compulsory": true
+          }
+        ]
+      }
+    ],
+    "programTrackedEntityAttributes": [
+      {
+        "displayName": "TB program First name",
+        "trackedEntityAttribute": {
+          "description": "First name",
+          "valueType": "TEXT",
+          "displayName": "First name"
+        }
+      },
+      {
+        "displayName": "TB program Last name",
+        "trackedEntityAttribute": {
+          "description": "Last name",
+          "valueType": "TEXT",
+          "displayName": "Last name"
+        }
+      },
+      {
+        "displayName": "TB program Gender",
+        "trackedEntityAttribute": {
+          "description": "Gender",
+          "valueType": "TEXT",
+          "optionSet": {
+            "options": [
+              {
+                "code": "Male",
+                "name": "Male"
+              },
+              {
+                "code": "Female",
+                "name": "Female"
+              }
+            ]
+          },
+          "displayName": "Gender"
+        }
+      },
+      {
+        "displayName": "TB program TB identifier",
+        "trackedEntityAttribute": {
+          "valueType": "TEXT",
+          "displayName": "TB identifier"
+        }
+      },
+      {
+        "displayName": "TB program Age",
+        "trackedEntityAttribute": {
+          "description": "Age",
+          "valueType": "AGE",
+          "displayName": "Age"
+        }
+      },
+      {
+        "displayName": "TB program Address",
+        "trackedEntityAttribute": {
+          "description": "Country",
+          "valueType": "TEXT",
+          "displayName": "Address"
+        }
+      },
+      {
+        "displayName": "TB program City",
+        "trackedEntityAttribute": {
+          "description": "City",
+          "valueType": "TEXT",
+          "displayName": "City"
+        }
+      },
+      {
+        "displayName": "TB program State",
+        "trackedEntityAttribute": {
+          "description": "State",
+          "valueType": "TEXT",
+          "displayName": "State"
+        }
+      },
+      {
+        "displayName": "TB program Zip code",
+        "trackedEntityAttribute": {
+          "description": "Zip code",
+          "valueType": "NUMBER",
+          "displayName": "Zip code"
+        }
+      },
+      {
+        "displayName": "TB program Email",
+        "trackedEntityAttribute": {
+          "description": "Email address",
+          "valueType": "TEXT",
+          "displayName": "Email"
+        }
+      },
+      {
+        "displayName": "TB program Phone number",
+        "trackedEntityAttribute": {
+          "description": "Phone number",
+          "valueType": "PHONE_NUMBER",
+          "displayName": "Phone number"
+        }
+      },
+      {
+        "displayName": "TB program Residence location",
+        "trackedEntityAttribute": {
+          "valueType": "COORDINATE",
+          "displayName": "Residence location"
+        }
+      },
+      {
+        "displayName": "TB program Mother maiden name",
+        "trackedEntityAttribute": {
+          "description": "Mother maiden name",
+          "valueType": "TEXT",
+          "displayName": "Mother maiden name"
+        }
+      },
+      {
+        "displayName": "TB program National identifier",
+        "trackedEntityAttribute": {
+          "description": "National identifier",
+          "valueType": "TEXT",
+          "displayName": "National identifier"
+        }
+      },
+      {
+        "displayName": "TB program Occupation",
+        "trackedEntityAttribute": {
+          "description": "Occupation",
+          "valueType": "TEXT",
+          "displayName": "Occupation"
+        }
+      },
+      {
+        "displayName": "TB program Company",
+        "trackedEntityAttribute": {
+          "description": "Company",
+          "valueType": "TEXT",
+          "displayName": "Company"
+        }
+      },
+      {
+        "displayName": "TB program TB number",
+        "trackedEntityAttribute": {
+          "description": "TB number",
+          "valueType": "TEXT",
+          "displayName": "TB number"
+        }
+      },
+      {
+        "displayName": "TB program Vehicle",
+        "trackedEntityAttribute": {
+          "description": "Vehicle",
+          "valueType": "TEXT",
+          "displayName": "Vehicle"
+        }
+      },
+      {
+        "displayName": "TB program Blood type",
+        "trackedEntityAttribute": {
+          "description": "Blood type",
+          "valueType": "TEXT",
+          "displayName": "Blood type"
+        }
+      },
+      {
+        "displayName": "TB program Weight in kg",
+        "trackedEntityAttribute": {
+          "description": "Weight in kg",
+          "valueType": "NUMBER",
+          "displayName": "Weight in kg"
+        }
+      },
+      {
+        "displayName": "TB program Height in cm",
+        "trackedEntityAttribute": {
+          "description": "Height in cm",
+          "valueType": "NUMBER",
+          "displayName": "Height in cm"
+        }
+      },
+      {
+        "displayName": "TB program Latitude",
+        "trackedEntityAttribute": {
+          "description": "Latitude",
+          "valueType": "TEXT",
+          "displayName": "Latitude"
+        }
+      },
+      {
+        "displayName": "TB program Longitude",
+        "trackedEntityAttribute": {
+          "description": "Longitude",
+          "valueType": "TEXT",
+          "displayName": "Longitude"
+        }
+      },
+      {
+        "displayName": "TB program Unique ID",
+        "trackedEntityAttribute": {
+          "description": "Unique identiifer",
+          "valueType": "TEXT",
+          "displayName": "Unique ID"
+        }
+      }
+    ]
+  }

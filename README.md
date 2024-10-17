@@ -157,10 +157,82 @@ If your DHIS2 data element is an option set, you need to express this in FSH. Th
 ```
 First we define the FHIR data element, giving it the dataType `code`. We then declare which value set the codes should be drawn from. In this case, it is the `TBDiseaseClassificationVS` value set defined in [Part 2](#part-2---handling-option-sets-creating-code-system-and-value-sets-using-fsh).
 ## Part 4 - Define the Logical Model for the Tracker Program
-* 
+The goal of part 4 is to create a FHIR logical model (LM) for the Tb Tracker Program itself, using the program's tracked entity attributes (TEAs) and linking program stages as part of the model. 
+### Start by defining the logical model for the TB Tracker Program
+Similar to the program stages, you will map the program's tracked entity attributes (TEAs) to FHIR data elements. 
+Each TEA in DHIS2 becomes a FHIR data element in the logical model.
+* For each TEA, specify: 
+  * FHIR data element name.
+  * Cardinality. Based on whether the attribute is mandatory (mandatory=true for 1..1, otherwise 0..1).
+  * dataType: Map DHIS2 valueType to a FHIR data type (like `TEXT` to `string`, `BOOLEAN` to `boolean` etc.)
+  * Description: Use the description field from DHIS2, or fallback to `formName` / `displayName` if no description exists. 
+### Link Program Stages to the Logical Model
+To represent the program stages in the tracker program, include references to the program stage logical models. Each program stage (TB Visit, Lab Monitoring, ...) should be linked as a FHIR data element with a data type referring to its logical mode. 
+#### Example
+Here is an example of how the logical model for the TB Tracker Program would look in FSH, linking both tracked entity attributes and program stages:
+```fsh
+Logical: TBTrackerProgram
+Title: "TB Tracker Program"
+Parent: Base
+Description: "Logical model representation of the TB Tracker Program"
 
+* firstName 1..1 string "First name of the patient"
+* lastName 1..1 string "Last name of the patient"
+* ...
+
+// Link the program stages to the program
+* tbVisit 0..1 TBVisit "TB Visit"
+...
+```
+You must also provide the linking for the "Lab Monitoring" and "Sputum Smear Microscopy Test" program stages.
 ## Part 5 - Review and Validate
-* Run the sushi validation
+Go through the logical models, code systems and value sets to check for consistency and readability. The structure should give a clear view of the DHIS2 data model without needing to refer back to terms like "tracked entity instance", "program stages" and so on.  
+### Validate the IG:
+* Run the IG Publisher to validate the logical models and ensure everything is in order. 
+* Example of how to run the validation steps:
+    ```bash
+    sushi .
+    ./_genonce.sh
+    ```
+If you wrote valid FHIR Shorthand, SUSHI will exit reporting 0 errors. You also get a free random fish pun!
+```cmd
+╔════════════════════════ SUSHI RESULTS ══════════════════════════╗
+║ ╭───────────────┬──────────────┬──────────────┬───────────────╮ ║
+║ │    Profiles   │  Extensions  │   Logicals   │   Resources   │ ║
+║ ├───────────────┼──────────────┼──────────────┼───────────────┤ ║
+║ │       0       │      0       │      4       │       0       │ ║
+║ ╰───────────────┴──────────────┴──────────────┴───────────────╯ ║
+║ ╭────────────────────┬───────────────────┬────────────────────╮ ║
+║ │      ValueSets     │    CodeSystems    │     Instances      │ ║
+║ ├────────────────────┼───────────────────┼────────────────────┤ ║
+║ │         4          │         4         │         1          │ ║
+║ ╰────────────────────┴───────────────────┴────────────────────╯ ║
+║                                                                 ║
+╠═════════════════════════════════════════════════════════════════╣
+║ You're making waves now!               0 Errors      0 Warnings ║
+╠═════════════════════════════════════════════════════════════════╣
+║    You are using SUSHI version 3.11.0, but the latest stable    ║
+║ release is version 3.12.0. To install the latest release, run:  ║
+║                    npm install -g fsh-sushi                     ║
+╚═════════════════════════════════════════════════════════════════╝
+```
+If you got any errors, they will be reflected in the log and counted in the summary. You will also get a random bad fish pun as a punishment. Go back to your text editor, fix the FSH definitions, and try again!
+
+When the build is successful, go ahead and take a look at the new `fsh-generated` folder in the project. This contains the files that SUSHI generated for you. These are representations of your FHIR resources in `json`format, and will be used as input to the HL7 FHIR IG Publisher.
+
+### Run the HL7 IG Publisher
+To run the HL7 IG Publisher on the files that SUSHI just generated:
+
+* Go back to your command prompt (which should still be in your unzipped project directory)
+* Run the following command to download the HL7 IG Publisher jar (Java Archive)
+  * Windows: `_updatePublisher`
+  * Mac: `./_updatePublisher.sh`
+* Once it is downloaded, run the following command to invoke the HL7 IG Publisher:
+  * Windows: `_genonce`
+  * Mac: `./_genonce.sh`
+
+If the IG Publisher completed successfully, you should now be able to view your human-readable Implementation Guide by opening the file at _output/index.html_ in your web browser. Click "Artifacts" in the menu, then click on the link for your **TB Program Logical Model**. And voilà! You should now see your logical model representation of the TB Tracker program.
+
 ## Part 6 - Add Narrative Content
 * Show how to add narrative content to the IG:
   * Change `ìnput/pagecontent/index.md`

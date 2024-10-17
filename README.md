@@ -32,7 +32,7 @@ However, this query will not include the nested structures such as program stage
 
 We therefore need to refine the queries to only pull the necessary details. For the scope of this exercise, we will need the following fields: 
 ```http
-GET api/programs/ur1Edk5Oe2n?fields=name,displayName,description,,programStages[name,description,programStageDataElements[compulsory,dataElement[formName,displayName,valueType,description,optionSet[options[code,name]]]]],programTrackedEntityAttributes[displayName,trackedEntityAttribute[displayName,valueType,description,,optionSet[options[code,name]]]]
+GET /api/programs/ur1Edk5Oe2n?fields=name,displayName,description,,programStages[name,description,programStageDataElements[compulsory,dataElement[formName,displayName,valueType,description,optionSet[options[code,name]]]]],programTrackedEntityAttributes[displayName,trackedEntityAttribute[displayName,valueType,description,,optionSet[options[code,name]]]]
 ```
 This fetches:
 * **Top-level Program Fields:**
@@ -49,20 +49,20 @@ This fetches:
       * `displayName`: The display name of the data element. 
       * `valueType`: The data value type (e.g., `TEXT`, `BOOLEAN`)
       * `description`: A brief description of the data element.
-      * Option Set (if the data element is an option set):
+      * **Option Set (if the data element is an option set)**:
         * `options`: The possible options associated wit the data element's option set. 
           * `code`: The option code.
           * `name`: The display name of the option. 
 * **Program Tracked Entity Attributes:**
-  * displayName: The display name of the tracked entity attribute. 
+  * `displayName`: The display name of the tracked entity attribute. 
   * **Tracked Entity Attribute:**
-    * displayName: The displayname of the tracked entity attribute. 
-    * valueType: the data type of the attribute (e.g., `TEXT`,`BOOLEAN`).
-    * description: A brief description of the attribute. 
-    * Option Set (if the TEA is an option set):
-      * options: The options associated with the TEA's option set. 
-        * code: the option code.
-        * name: The name of the option.
+    * `displayName`: The displayname of the tracked entity attribute. 
+    * `valueType`: the data type of the attribute (e.g., `TEXT`,`BOOLEAN`).
+    * `description`: A brief description of the attribute. 
+    * **Option Set (if the TEA is an option set)**:
+      * `options`: The options associated with the TEA's option set. 
+        * `code`: the option code.
+        * `name`: The name of the option.
 
 You should now have a payload like this:
 ```json
@@ -108,13 +108,13 @@ Please note that for your use-case, you might need to add extra fields, such as 
 Define FHIR code systems and value sets based on DHIS2 option sets. 
 
 ### 1 - Create FHIR Code Systems:
-* For each DHIS2 option set, create a FHIR code system FSH file that lists all the available options. Use the DHIS2 metadata payload as reference.
+* For each DHIS2 option set, create a FHIR code system in FSH that lists all the available options. Use the DHIS2 metadata payload as reference.
 * The general structure is as follows:
     ```fsh
     CodeSystem: Dhis2OptionSetCS
     Id: dhis2-option-set-cs
     Title: "DHIS2 Option Set Code System"
-    Description: "This is the basic structure of a option set based Code System."
+    Description: "This is the basic structure of a FHIR code system based on a DHIS2 option set."
     * #"optionsCode1" "optionsName1"
     * #"optionsCode2" "optionsName2"
     * ...
@@ -139,8 +139,25 @@ Define FHIR code systems and value sets based on DHIS2 option sets.
 You should now have representations of all your DHIS2 option sets as FHIR code systems, with the appropriate value sets linking to them. If you are stuck or need further clarification, you can reference the tutorial solution. 
 
 ## Part 3 - Define the Logical Models for the Program Stages
+The goal of part 3 is to create FHIR logical models (LMs) for the three DHIS2 program stages in the TB Tracker Program: TB Visit, Lab Monitoring and Sputum Smear Microscopy Test. These LMs will map each program stage's data elements to FHIR data elements. 
 
+* Each logical model will define the structue of the program stage using FSH. 
+* Use the DHIS2 metadata you fetched in Part 1 as reference when mapping the data elements. 
+* For each DHIS2 data element in that program stage: 
+  * Define the corresponding FHIR data element by identifying: 
+    * FHIR data element name
+    * Cardinality. Set the appropriate cardinality based on whether the data element is mandatory (if `mandatory=true`, the cardinality is `1..1`, if not, `0..1`).
+    * dataType. Map the DHIS2 value type to a FHIR datatype (for example, TEXT to string, BOOLEAN to boolean)
+    * description.
+### Example on how to bind the data element to a value set
+If your DHIS2 data element is an option set, you need to express this in FSH. This can be done with the following syntax: 
+```fsh
+* diseaseClassification 0..1 code "TB Disease Classification"
+* diseaseClassification from TBDiseaseClassificationVS (required)
+```
+First we define the FHIR data element, giving it the dataType `code`. We then declare which value set the codes should be drawn from. In this case, it is the `TBDiseaseClassificationVS` value set defined in [Part 2](#part-2---handling-option-sets-creating-code-system-and-value-sets-using-fsh).
 ## Part 4 - Define the Logical Model for the Tracker Program
+* 
 
 ## Part 5 - Review and Validate
 * Run the sushi validation

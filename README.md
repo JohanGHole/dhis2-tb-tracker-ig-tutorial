@@ -3,9 +3,9 @@
 ## Goal
 In this exercise, we will showcase how to create a Logical Model representation of a DHIS2 Tracker Program. We will manually map the TB Tracker program from the Sierra Leone demo database to a FHIR IG, focusing on the machine-readable components of the IG using FSH and the IG publisher.
 
-> **_Note_**: This exercise serves as an opinionated guide on how to represent your DHIS2 Tracker metadata as FHIR logical models and value sets. The selection of DHIS2 metadata fields to include or exclude may vary depending on your specific use case. For this tutorial, we have chosen to use the formName/displayName fields instead of name, as the latter often contains prefixes or suffixes that might not be suitable for direct mapping.
+> **_Note_**: This exercise serves as an opinionated guide on how to represent your DHIS2 Tracker metadata as FHIR logical models and value sets. The selection of DHIS2 metadata fields to include or exclude may vary depending on your specific use case. For this tutorial, we have chosen to use the `formName`/`displayName` fields instead of `name`, as the latter often contains prefixes or suffixes that might not be suitable for direct mapping.
 
-If you get stuck during the tutorial, please reference the tutorial solution found here(INSERT LINK). 
+If you get stuck during the tutorial, please reference the tutorial solution found [here](https://github.com/JohanGHole/tb-tracker-program-ig). 
 
 ## Prerequisites
 * [Visual Studio Code](https://code.visualstudio.com/download) with [vscode-language-fsh](https://marketplace.visualstudio.com/items?itemName=FHIR-Shorthand.vscode-fsh) extension installed.
@@ -233,6 +233,7 @@ To run the HL7 IG Publisher on the files that SUSHI just generated:
 
 If the IG Publisher completed successfully, you should now be able to view your human-readable Implementation Guide by opening the file at _output/index.html_ in your web browser. Click "Artifacts" in the menu, then click on the link for your **TB Program Logical Model**. And voilà! You should now see your logical model representation of the TB Tracker program.
 
-## Part 6 - Add Narrative Content
+## Part 6 (Bonus) - Add Narrative Content
 * Show how to add narrative content to the IG:
-  * Change `ìnput/pagecontent/index.md`
+  * Change `/ìnput/pagecontent/index.md`
+  * Add extra pages to `/input/pagecontent`

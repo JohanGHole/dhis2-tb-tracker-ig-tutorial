@@ -15,7 +15,7 @@ If you get stuck during the tutorial, please reference the tutorial solution fou
 ## Part 1 - Fetch the TB tracker program's metadata
 The goal of part 1 is to get familiar with the TB tracker program's metadata and how it is structured.
 
-### 1 - Fetch the DHIS2 metadata
+### 1.1 - Fetch the DHIS2 metadata
 Before using the API, it might be a good idea to start by using the DHIS2 UI to explore the tracker metadata. Navigate to the [DHIS2 Maintenance App](https://play.im.dhis2.org/dev/dhis-web-maintenance/index.html#/edit/programSection/program/ur1Edk5Oe2n) and [DHIS2 Capture App](https://play.im.dhis2.org/dev/dhis-web-maintenance/index.html#/edit/programSection/program/ur1Edk5Oe2n) to get an overview of how the TB tracker metadata is structured.
 
 Now, use the [DHIS2 API](https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-240/metadata.html) to fetch the metadata of the TB tracker program:
@@ -107,7 +107,7 @@ Please note that for your use-case, you might need to add extra fields, such as 
 ### Goal
 Define FHIR code systems and value sets based on DHIS2 option sets. 
 
-### 1 - Create FHIR Code Systems:
+### 2.1 - Create FHIR Code Systems:
 * For each DHIS2 option set, create a FHIR code system in FSH that lists all the available options. Use the DHIS2 metadata payload as reference.
 * The general structure is as follows:
     ```fsh
@@ -127,7 +127,7 @@ Define FHIR code systems and value sets based on DHIS2 option sets.
     * #"Male" "Male"
     * #"Female" "Female"
     ```
-### 2 - Map Code Systems to Value Sets
+### 2.2 - Map Code Systems to Value Sets
 * We need to create corresponding FHIR Value Sets that reference the Code Systems. For each Code System defined for the tracker, create a corresponding FHIR value set.
 * Example:
     ```fsh
@@ -158,7 +158,7 @@ If your DHIS2 data element is an option set, you need to express this in FSH. Th
 First we define the FHIR data element, giving it the dataType `code`. We then declare which value set the codes should be drawn from. In this case, it is the `TBDiseaseClassificationVS` value set defined in [Part 2](#part-2---handling-option-sets-creating-code-system-and-value-sets-using-fsh).
 ## Part 4 - Define the Logical Model for the Tracker Program
 The goal of part 4 is to create a FHIR logical model (LM) for the Tb Tracker Program itself, using the program's tracked entity attributes (TEAs) and linking program stages as part of the model. 
-### Start by defining the logical model for the TB Tracker Program
+### 4.1 - Start by defining the logical model for the TB Tracker Program
 Similar to the program stages, you will map the program's tracked entity attributes (TEAs) to FHIR data elements. 
 Each TEA in DHIS2 becomes a FHIR data element in the logical model.
 * For each TEA, specify: 
@@ -166,7 +166,7 @@ Each TEA in DHIS2 becomes a FHIR data element in the logical model.
   * Cardinality. Based on whether the attribute is mandatory (mandatory=true for 1..1, otherwise 0..1).
   * dataType: Map DHIS2 valueType to a FHIR data type (like `TEXT` to `string`, `BOOLEAN` to `boolean` etc.)
   * Description: Use the description field from DHIS2, or fallback to `formName` / `displayName` if no description exists. 
-### Link Program Stages to the Logical Model
+### 4.2 - Link Program Stages to the Logical Model
 To represent the program stages in the tracker program, include references to the program stage logical models. Each program stage (TB Visit, Lab Monitoring, ...) should be linked as a FHIR data element with a data type referring to its logical mode. 
 #### Example
 Here is an example of how the logical model for the TB Tracker Program would look in FSH, linking both tracked entity attributes and program stages:
@@ -187,7 +187,7 @@ Description: "Logical model representation of the TB Tracker Program"
 You must also provide the linking for the "Lab Monitoring" and "Sputum Smear Microscopy Test" program stages.
 ## Part 5 - Review and Validate
 Go through the logical models, code systems and value sets to check for consistency and readability. The structure should give a clear view of the DHIS2 data model without needing to refer back to terms like "tracked entity instance", "program stages" and so on.  
-### Validate the IG:
+### 5.1 - Validate the IG:
 * Run the IG Publisher to validate the logical models and ensure everything is in order. 
 * Example of how to run the validation steps:
     ```bash
@@ -220,7 +220,7 @@ If you got any errors, they will be reflected in the log and counted in the summ
 
 When the build is successful, go ahead and take a look at the new `fsh-generated` folder in the project. This contains the files that SUSHI generated for you. These are representations of your FHIR resources in `json`format, and will be used as input to the HL7 FHIR IG Publisher.
 
-### Run the HL7 IG Publisher
+### 5.2 - Run the HL7 IG Publisher
 To run the HL7 IG Publisher on the files that SUSHI just generated:
 
 * Go back to your command prompt (which should still be in your unzipped project directory)
@@ -234,6 +234,46 @@ To run the HL7 IG Publisher on the files that SUSHI just generated:
 If the IG Publisher completed successfully, you should now be able to view your human-readable Implementation Guide by opening the file at _output/index.html_ in your web browser. Click "Artifacts" in the menu, then click on the link for your **TB Program Logical Model**. And voilà! You should now see your logical model representation of the TB Tracker program.
 
 ## Part 6 (Bonus) - Add Narrative Content
-* Show how to add narrative content to the IG:
-  * Change `/ìnput/pagecontent/index.md`
-  * Add extra pages to `/input/pagecontent`
+In this bonus step, the goal is to learn how to add narrative content to the IG. Narrative content helps provide context and human-readable explanations in the IG, ensuring that end users understand the purpose and structure of the logical models. This step involves updating the home page and adding custom pages to the IG. 
+
+### 6.1 - Update the Homepage
+Navigate to the `input/pagecontent` folder in your _SUSHI_ project. Locate the `index.md`file. This file represents the homepage of your IG. Open the file and modify the content to reflect an introduction or overview of you TB Tracker program. You can format the content using Markdown for headings, lists, and links. A useful reference might be HL7's implementation guide on _how_ to author implementation guides. The link can be found [here](https://build.fhir.org/ig/FHIR/ig-guidance/). Example content could include:
+```markdown
+# DHIS2 TB Tracker Implementation Guide Tutorial
+
+### Summary
+
+### About this implementation guide
+
+### Disclaimer
+The specification herewith documented is a demo working specification and may not be used for any implementation purposes. This draft is provided without warranty of completeness or consistency and the official publication supersedes this draft. No liability can be inferred from the use or misuse of this specification or its consequences.
+```
+### 6.2 - Add Extra Pages
+To add more sections to your IG, you can create new Markdown files inside the `input/pagecontent`folder. For example, if you want a separate page explaining the general structure of a DHIS2 Tracker program and its components, create a file named `tracker-program-structure.md`. You can then link to these pages from the homepage (`index.md`) or other relevant sections using Markdown link:
+```markdown
+- <a href="tracker-program-structure.html">Tracker Program Structure</a> - contains an overview over how DHIS2 tracker programs are structured.
+```
+
+### 6.3 - Update Pages in `sushi-config.yaml`
+Open the sushi-config.yaml file in your project. Under the `pages`section, you can specify how you want to organize the pages in your IG. if the section doesn't exist, you'll need to add it to manually manage the pages.
+```yaml
+pages:
+  index.md:
+    title: "TB Tracker IG"
+  tracker-program-structure.md:
+    title: "DHIS2 Tracker Program Structure"
+  artifacts.md:
+    title: "Artifacts"
+```
+Ensure that each file in the `pagecontent` has a corresponding entry in `sushi-config.yaml` for it to be included correctly in the IG.  
+
+### 6.4 - Update the Menu in `sushi-config.yaml`
+To make sure the new pages are included in the IG's navigation menu, you need to update the `menu`section in the `sushi-config.yaml`file. First, open the `sushi-config.yaml`file and locate the `menu` section. Add your new pages to the menu. Here is an example on how to add the `tracker-program-structure.md` page:
+```yaml
+menu:
+  Home: index.html
+  DHIS2 Program Structure: tracker-program-structure.html
+  Artifacts: artifacts.html
+```
+### 6.5 Validate Changes
+After adding pages and updating the sushi-config.yaml file, run SUSHI and the IG Publisher to generate the updated IG. Ensure that the new pages are linked correctly in the navigation menu and that the content appears as expected. 

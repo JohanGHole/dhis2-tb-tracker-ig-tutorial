@@ -8,10 +8,14 @@ In this exercise, we will showcase how to create a Logical Model representation 
 If you get stuck during the tutorial, please reference the tutorial solution found [here](https://github.com/JohanGHole/tb-tracker-program-ig). 
 
 ## Prerequisites
-* [Java JDK](https://www.oracle.com/java/technologies/downloads/) version >= 17 
-* [Visual Studio Code](https://code.visualstudio.com/download) with [vscode-language-fsh](https://marketplace.visualstudio.com/items?itemName=FHIR-Shorthand.vscode-fsh) extension installed.
-* [SUSHI](https://github.com/FHIR/sushi) Installed (requires [Node.js](https://nodejs.org/en), [Ruby](https://www.ruby-lang.org/en/downloads/) and [Jekyll](https://jekyllrb.com/docs/installation/) to be installed on the system). SUSHI is needed to compile FSH into valid FHIR definitions.
-* Access to a local instance of DHIS2 with the Sierra Leone database installed. We recommend using the HISP Training DHIS2 server found [here](https://dev.im.dhis2.org/hisp-training-sri-lanka-2024/).
+Before starting the exercise, please ensure that the following tools and resources are installed and configured on your system:
+
+- **[Java JDK](https://www.oracle.com/java/technologies/downloads/)** (version 17 or higher): Required for running the IG Publisher and other FHIR tooling.
+- **[Visual Studio Code](https://code.visualstudio.com/download)**: The recommended code editor for writing FSH files. Make sure to install the **[vscode-language-fsh](https://marketplace.visualstudio.com/items?itemName=FHIR-Shorthand.vscode-fsh)** extension to enable FSH syntax highlighting.
+- **[SUSHI](https://github.com/FHIR/sushi)**: The tool that compiles FSH into valid FHIR definitions. To install SUSHI, you need the following dependencies installed on your system:
+  - **[Node.js](https://nodejs.org/en)** (required for SUSHI).
+  - **[Ruby](https://www.ruby-lang.org/en/downloads/)** and **[Jekyll](https://jekyllrb.com/docs/installation/)** (required for the IG Publisher to generate Implementation Guides).
+- Access to a DHIS2 instance with the Sierra Leone demo database. We recommend using the [DHIS2 HISP Training 2024 server](https://dev.im.dhis2.org/hisp-training-sri-lanka-2024/).
 
 ## Part 1 - Fetch the TB tracker program's metadata
 The goal of part 1 is to get familiar with the TB tracker program's metadata and how it is structured.

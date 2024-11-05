@@ -1,0 +1,25 @@
+map "http://example.org/fhir/StructureMap/TbProgramToPatient" = "TbProgramToPatient"
+
+// TB Program to Patient transformation map
+
+uses "http://example.org/fhir/StructureDefinition/tbProgram" alias tbProgram as source
+uses "http://hl7.org/fhir/StructureDefinition/Patient" alias Patient as target
+
+
+group TbProgramToPatient {source tbProgram : tbProgram, target patient : Patient} (
+    tbProgram.uniqueId as id -> patient.identifier as identifier then {
+        id -> identifier.value = id "SetIdentifierValue";
+    } "SetIdentifier";
+
+    tbProgram.firstName as fname, tbprogram.lastName as lname -> patient.name as pname then {
+        fname -> pname.given, lname -> pname.family "SetGivenAndFamilyName";
+    } "SetName";
+
+    tbProgram.gender -> patient.gender "SetGender";
+
+    tbProgram.address as country, tbprogram.city as city, tbprogram.state as state, tbprogram.ZipCode as zipCode ->
+    
+    patient.address as address then {
+        country -> address.country, city -> address.city, state -> address.state, zipCode -> address.postalCode "SetAddressFields"; 
+    } "SetAddress";
+)

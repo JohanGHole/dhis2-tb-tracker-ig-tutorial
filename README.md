@@ -10,11 +10,34 @@ If you get stuck during the tutorial, please reference the tutorial solution fou
 ## Prerequisites
 Before starting the exercise, please ensure that the following tools and resources are installed and configured on your system:
 
-- **[Java JDK](https://www.oracle.com/java/technologies/downloads/)** (version 17 or higher): Required for running the IG Publisher and other FHIR tooling.
-- **[Visual Studio Code](https://code.visualstudio.com/download)**: The recommended code editor for writing FSH files. Make sure to install the **[vscode-language-fsh](https://marketplace.visualstudio.com/items?itemName=FHIR-Shorthand.vscode-fsh)** extension to enable FSH syntax highlighting.
 - **[SUSHI](https://github.com/FHIR/sushi)**: The tool that compiles FSH into valid FHIR definitions. To install SUSHI, you need the following dependencies installed on your system:
   - **[Node.js](https://nodejs.org/en)** (required for SUSHI).
   - **[Ruby](https://www.ruby-lang.org/en/downloads/)** and **[Jekyll](https://jekyllrb.com/docs/installation/)** (required for the IG Publisher to generate Implementation Guides).
+  - **[Java JDK](https://www.oracle.com/java/technologies/downloads/)** (version 17 or higher): Required for running the IG Publisher and other FHIR tooling.
+
+Once **Node.js**, **Ruby** and **Java JDK** has been installed, run the following command to install or update SUSHI:
+
+```bash
+npm install -g sushi
+```
+After installation, the `sushi`commandline will be available on your path:
+```text
+$ sushi help
+
+Usage: sushi [options] [command]
+
+Options:
+  -v, --version                                        print SUSHI version
+  -h, --help                                           display help for command
+
+Commands:
+  build [options] [path-to-fsh-project]                build a SUSHI project
+  init [options] [name]                                initialize a SUSHI project
+  update-dependencies [options] [path-to-fsh-project]  update FHIR packages in project configuration
+  help [command]                                       display help for command
+```
+In addition, we also recommend having the following tools on your system:
+- **[Visual Studio Code](https://code.visualstudio.com/download)**: The recommended code editor for writing FSH files. Make sure to install the **[vscode-language-fsh](https://marketplace.visualstudio.com/items?itemName=FHIR-Shorthand.vscode-fsh)** extension to enable FSH syntax highlighting.
 - Access to a DHIS2 instance with the Sierra Leone demo database. We recommend using the [DHIS2 HISP Training 2024 server](https://dev.im.dhis2.org/hisp-training-sri-lanka-2024/).
 
 ## Part 1 - Fetch the TB tracker program's metadata

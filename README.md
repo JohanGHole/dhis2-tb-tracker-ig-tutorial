@@ -60,7 +60,7 @@ However, this query will not include the nested structures such as program stage
 
 We therefore need to refine the queries to only pull the necessary details. For the scope of this exercise, we will need the following fields: 
 ```http
-GET /api/programs/ur1Edk5Oe2n?fields=name,displayName,description,,programStages[name,description,programStageDataElements[compulsory,dataElement[formName,displayName,valueType,description,optionSet[options[code,name]]]]],programTrackedEntityAttributes[displayName,trackedEntityAttribute[displayName,valueType,description,,optionSet[options[code,name]]]]
+GET /api/programs/ur1Edk5Oe2n?fields=name,displayName,description,programStages[name,description,programStageDataElements[compulsory,dataElement[formName,displayName,valueType,description,optionSet[options[code,name]]]]],programTrackedEntityAttributes[displayName,trackedEntityAttribute[displayName,valueType,description,,optionSet[options[code,name]]]]
 ```
 This fetches:
 * **Top-level Program Fields:**

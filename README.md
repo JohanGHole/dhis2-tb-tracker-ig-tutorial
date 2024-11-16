@@ -18,7 +18,7 @@ Before starting the exercise, please ensure that the following tools and resourc
 Once **Node.js**, **Ruby** and **Java JDK** has been installed, run the following command to install or update SUSHI:
 
 ```bash
-npm install -g sushi
+npm install -g fsh-sushi
 ```
 After installation, the `sushi`commandline will be available on your path:
 ```text
